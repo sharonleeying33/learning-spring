@@ -1,42 +1,32 @@
 package org.packt.Spring.chapter5.JDBC.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.sql.DataSource;
 import org.packt.Spring.chapter5.JDBC.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  *
  */
+@Repository
 public class EmployeeDaoImpl implements EmployeeDao {
-
-    static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-    static final String DB_URL = "jdbc:mariadb://localhost:3306/hr";
-    static final String USER = "root";
-    static final String PWD = "root";
+    
+    @Autowired
+    private DataSource dataSource;
 
     Connection conn = null;
     Employee employee = null;
 
-    private void registerDriver() {
-        try {
-            Class.forName(JDBC_DRIVER).newInstance();
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        }
-    }
-
     @Override
     public Employee getEmployeeById(int id) {
         try {
-            registerDriver();
-            
-            conn = DriverManager.getConnection(DB_URL, USER, PWD);
+            conn = dataSource.getConnection();
             //==> prepareStatement
             PreparedStatement ps = conn.prepareStatement("select * from EMPLOYEE where id = ?");
             ps.setInt(1, id);
@@ -64,8 +54,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
         Connection conn = null;
         try {
-            registerDriver();
-            conn = DriverManager.getConnection(DB_URL, USER, PWD);
+            conn = dataSource.getConnection();
             //==> createStatement
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("create table EMPLOYEE (ID int, NAME varchar (50))");
@@ -85,8 +74,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void insertEmployee(Employee employee) {
         try {
-            registerDriver();
-            conn = DriverManager.getConnection(DB_URL, USER, PWD);
+            conn = dataSource.getConnection();
             //==> createStatement
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("insert into employee(id, name) values (1, '" +  employee.getName() + "')");
