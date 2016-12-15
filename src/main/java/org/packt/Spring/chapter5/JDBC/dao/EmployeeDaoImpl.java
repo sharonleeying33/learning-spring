@@ -1,10 +1,13 @@
 package org.packt.Spring.chapter5.JDBC.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 import org.packt.Spring.chapter5.JDBC.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -55,4 +58,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
         });
     }
+
+    @Override
+    public void insertEmployees(List<Employee> employees) {
+        String insertSql = "insert into employee (Id, Name,Age) values (?, ?, ?)";
+        jdbcTemplate.batchUpdate(insertSql, new BatchPreparedStatementSetter(){
+
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                Employee employee = employees.get(i);
+                ps.setInt(1, employee.getId());
+                ps.setString(2, employee.getName());
+                ps.setInt(3, employee.getAge());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return employees.size();
+            }
+        
+        });
+    }    
 }

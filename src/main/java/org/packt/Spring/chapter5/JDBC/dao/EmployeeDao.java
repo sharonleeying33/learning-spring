@@ -1,6 +1,7 @@
 
 package org.packt.Spring.chapter5.JDBC.dao;
 
+import java.util.List;
 import org.packt.Spring.chapter5.JDBC.model.Employee;
 
 /**
@@ -18,5 +19,7 @@ public interface EmployeeDao {
     int deleteEmployeeById(int empId);
     
     Employee getEmployeeById(int empId);
-
+    
+    void insertEmployees(final List<Employee> employees);
+    
 }
