@@ -5,11 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.packt.Spring.chapter5.JDBC.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,7 +26,36 @@ public class EmployeeDaoImpl implements EmployeeDao {
     
     @Autowired
     JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    private DataSource dataSource;
+    
+    private SimpleJdbcCall jdbcCall;
+    
+    public void setJdbcTemplateObject(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcCall = new SimpleJdbcCall(this.dataSource).withProcedureName("getEmployee");
+    }
 
+    @Override
+    public Employee useStoreProcedure2GetEmployee(int id) {
+        
+        // procedure中 Emp_Name,Emp_Age 是大寫, 但回傳皆是小寫
+        SqlParameterSource in = new MapSqlParameterSource().addValue("_id", id);
+        Map<String, Object>result = jdbcCall.execute(in);
+
+        // varchar 取出來型態是 byte[]
+        byte[] name = (byte[])result.get("emp_name");
+        System.out.printf("name = {%s}%n " , new String(name));
+       
+        return new Employee(id, new String((byte[])result.get("emp_name")), (int)result.get("emp_age"));
+    }
+    
     @Override
     public void createEmployee() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

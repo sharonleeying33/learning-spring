@@ -22,4 +22,6 @@ public interface EmployeeDao {
     
     void insertEmployees(final List<Employee> employees);
     
+    Employee useStoreProcedure2GetEmployee(int id);
+    
 }
