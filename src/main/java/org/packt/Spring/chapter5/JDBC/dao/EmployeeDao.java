@@ -9,13 +9,14 @@ import org.packt.Spring.chapter5.JDBC.model.Employee;
  */
 public interface EmployeeDao {
 
-    Employee getEmployeeById(int id);
-
-    /**
-     * create employee table
-     */
     void createEmployee();
-
-    void insertEmployee(Employee employee);
+    
+    int getEmployeeCount();
+    
+    int insertEmployee(Employee employee);
+    
+    int deleteEmployeeById(int empId);
+    
+    Employee getEmployeeById(int empId);
 
 }

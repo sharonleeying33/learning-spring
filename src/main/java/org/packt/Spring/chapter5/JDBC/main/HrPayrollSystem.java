@@ -17,9 +17,9 @@ public class HrPayrollSystem {
         EmployeeDao employeeDao = context.getBean("employeeDaoImpl", EmployeeDao.class);
         
         employeeDao.createEmployee();
-        employeeDao.insertEmployee(new Employee(1, "Jay Lee"));
-        Employee employee = employeeDao.getEmployeeById(1);
-        System.out.println("Employee name : " + employee.getName() );
+//        employeeDao.insertEmployee(new Employee(1, "Jay Lee"));
+//        Employee employee = employeeDao.getEmployeeById(1);
+//        System.out.println("Employee name : " + employee.getName() );
     }
     
 }
