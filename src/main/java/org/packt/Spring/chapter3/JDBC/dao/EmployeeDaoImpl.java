@@ -1,4 +1,4 @@
-package org.packt.Spring.chapter5.JDBC.dao;
+package org.packt.Spring.chapter3.JDBC.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,7 +7,7 @@ import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.packt.Spring.chapter5.JDBC.model.Employee;
+import org.packt.Spring.chapter3.JDBC.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;

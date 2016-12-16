@@ -1,8 +1,8 @@
 
-package org.packt.Spring.chapter5.JDBC.dao;
+package org.packt.Spring.chapter3.JDBC.dao;
 
 import java.util.List;
-import org.packt.Spring.chapter5.JDBC.model.Employee;
+import org.packt.Spring.chapter3.JDBC.model.Employee;
 
 /**
  *

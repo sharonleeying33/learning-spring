@@ -1,5 +1,5 @@
 
-package org.packt.Spring.chapter5.JDBC.model;
+package org.packt.Spring.chapter3.JDBC.model;
 
 /**
  *

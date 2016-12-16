@@ -1,9 +1,9 @@
-package org.packt.Spring.chapter5.JDBC.main;
+package org.packt.Spring.chapter3.JDBC.main;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.packt.Spring.chapter5.JDBC.dao.EmployeeDao;
-import org.packt.Spring.chapter5.JDBC.model.Employee;
+import org.packt.Spring.chapter3.JDBC.dao.EmployeeDao;
+import org.packt.Spring.chapter3.JDBC.model.Employee;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
