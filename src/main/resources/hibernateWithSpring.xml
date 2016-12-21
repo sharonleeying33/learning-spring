@@ -22,7 +22,7 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses"
             value="org.packt.spring.chapter6.hibernate.model.Employee" />
